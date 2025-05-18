@@ -1,0 +1,13 @@
+{
+  "name": "staking-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "mongoose": "^7.6.0",
+    "node-fetch": "^2.6.7"
+  }
+}
