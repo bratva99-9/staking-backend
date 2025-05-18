@@ -42,17 +42,3 @@ async function fetchStakeDeposits() {
 }
 
 fetchStakeDeposits();
-
-// test manual
-/*
-const stake = new Stake({
-  user: "testuser.wam",
-  asset_ids: ["123456789"],
-  memo: "staking",
-  tx: "fake_tx_" + Date.now(),
-  timestamp: new Date()
-});
-stake.save().then(() => {
-  console.log("✅ TEST guardado manual en MongoDB");
-});
-*/
