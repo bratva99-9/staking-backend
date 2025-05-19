@@ -1,3 +1,4 @@
+// scanner.js
 const mongoose = require("mongoose");
 const fetch = require("node-fetch");
 const Stake = require("./StakeModel");
@@ -6,14 +7,9 @@ const mongoUri = process.env.MONGO_URI;
 const OWNER = "nightclub.gm";
 const MEMO = "staking";
 
-const runScanner = async () => {
+// Función reutilizable
+async function fetchStakeDeposits() {
   try {
-    await mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("✅ MongoDB conectado");
-
     const url = `https://wax.eosrio.io/v2/history/get_actions?account=${OWNER}&filter=atomicassets:transfer&sort=desc&limit=50`;
     const res = await fetch(url);
     const result = await res.json();
@@ -39,12 +35,28 @@ const runScanner = async () => {
         }
       }
     }
-
-    process.exit(0);
   } catch (error) {
-    console.error("⛔ Error:", error.message);
-    process.exit(1);
+    console.error("⛔ Error en fetchStakeDeposits:", error.message);
   }
-};
+}
 
-runScanner();
+// Exporta la función para usar en index.js
+module.exports = fetchStakeDeposits;
+
+// Si se ejecuta directamente (node scanner.js), conecta y corre
+if (require.main === module) {
+  require("dotenv").config();
+  mongoose
+    .connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(async () => {
+      console.log("✅ Conectado a MongoDB");
+      await fetchStakeDeposits();
+      mongoose.disconnect();
+    })
+    .catch((err) => {
+      console.error("❌ Error conectando a MongoDB:", err.message);
+    });
+}
