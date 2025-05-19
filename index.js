@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -72,18 +70,4 @@ app.get("/", (req, res) => {
 });
 
 // Ruta de consulta
-app.get("/stakes/:user", async (req, res) => {
-  try {
-    const stakes = await Stake.find({ user: req.params.user });
-    res.json(stakes);
-  } catch (err) {
-    res.status(500).json({ error: "Error al consultar staking" });
-  }
-});
-
-// Iniciar servidor
-app.listen(port, "0.0.0.0", async () => {
-  await connectDB();
-  console.log(`🚀 Servidor escuchando en el puerto ${port}`);
-  fetchStakeDeposits();
-});
+app.get
