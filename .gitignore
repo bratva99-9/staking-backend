@@ -1,0 +1,14 @@
+# Ignora el archivo de variables de entorno
+.env
+
+# Ignora dependencias
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Archivos temporales
+.DS_Store
+*.swp
